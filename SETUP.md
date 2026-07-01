@@ -15,7 +15,8 @@ Follow the section for **your** operating system, then everyone does the same
 
 ## 0. What you need before you start
 
-- A computer you can install software on (ask your mentor if it's locked down).
+- A computer you can install software on (if it's a locked-down school or work
+  laptop, whoever manages it may need to allow installs).
 - An internet connection.
 - About 20 minutes.
 
@@ -25,13 +26,13 @@ You do **not** need to install Python yourself — `uv` does that for you.
 
 ## 1. Get the project files
 
-If your mentor gave you a link to download a `.zip`, unzip it somewhere you'll
-find again — for example your **Desktop** or **Documents** folder.
+If you were given a link to download a `.zip`, unzip it somewhere you'll find
+again — for example your **Desktop** or **Documents** folder.
 
-If you were asked to use **git**, open a terminal (see below for how) and run:
+If you were given a **git** link instead, open a terminal (see below for how) and run:
 
 ```bash
-git clone <the-repo-url-your-mentor-gives-you>
+git clone <the-repo-url-you-were-given>
 cd finance-dashboard-workexp
 ```
 
@@ -135,17 +136,19 @@ prompt back with no errors.
 
 ---
 
-## 5. Run the dashboard 🎉
+## 5. Run the screener 🎉
 
 ```bash
 uv run streamlit run app.py
 ```
 
 Your web browser should pop open at `http://localhost:8501` showing the
-dashboard. If it doesn't open automatically, copy that address into your browser.
+screener. If it doesn't open automatically, copy that address into your browser.
 
-You now have a running app! It's only a skeleton for now — the rest of the
-project is about growing it. Follow **[guides/00-welcome.md](guides/00-welcome.md)** next.
+You now have a running app! It's only a skeleton for now — a table of stocks. The
+rest of the project is about growing it into a real screener. Follow
+**[guides/00-welcome.md](guides/00-welcome.md)** (or the plan in
+**[SCHEDULE.md](SCHEDULE.md)**) next.
 
 To **stop** the app, go back to the terminal and press **`Ctrl + C`**.
 
@@ -171,7 +174,7 @@ Stop Jupyter the same way — `Ctrl + C` in the terminal.
 | I want to… | Command |
 | ---------- | ------- |
 | Set up the project (first time, and after new packages are added) | `uv sync` |
-| Run the dashboard | `uv run streamlit run app.py` |
+| Run the screener | `uv run streamlit run app.py` |
 | Open the notebook lessons | `uv run jupyter lab` |
 | Add a new package | `uv add <package-name>` |
 | Stop a running app / notebook | `Ctrl + C` in the terminal |
@@ -183,7 +186,7 @@ Stop Jupyter the same way — `Ctrl + C` in the terminal.
 | Problem | Try this |
 | ------- | -------- |
 | `uv: command not found` / "not recognised" | Close the terminal and open a new one. Still failing? Restart the computer. |
-| `uv sync` fails with a network error | Check your internet. On a work/school network, ask your mentor about a proxy or firewall. |
+| `uv sync` fails with a network error | Check your internet is working. On a locked-down school/work network a firewall or proxy may block it — try a different network (e.g. a home connection). |
 | Browser didn't open | Manually visit `http://localhost:8501`. |
 | "Port 8501 is already in use" | You already have the app running in another terminal. Close that one, or run `uv run streamlit run app.py --server.port 8502`. |
-| Something else | Copy the **full** error text and show your mentor. Errors are clues, not failures. |
+| Something else | Copy the **full** error text and search for it online — someone has almost certainly hit it before. Errors are clues, not failures. |

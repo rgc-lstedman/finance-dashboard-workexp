@@ -1,9 +1,15 @@
 # 👋 Welcome — start here
 
-Hello, and welcome to your finance dashboard project! Over the next few days
-you're going to build a real, working web app — one that downloads live stock
-prices, shows them in a table, lets you filter them, and draws a chart. You'll
-write actual Python to make it happen.
+Hello, and welcome to your stock screener project! In a single **half-day**,
+working on your own, you're going to build a real, working web app — one that
+downloads live prices for a whole **list** of companies and shows them as a
+table with **one row per company**. Then you can filter, sort and search to find
+the ones you care about, and click into any single stock to see its chart.
+You'll write actual Python to make it happen.
+
+This is a **self-guided** project — there's no mentor looking over your shoulder.
+That's on purpose: everything you need is right here in these files, and getting
+un-stuck by yourself is a huge part of the fun.
 
 Here's the most important thing to know before you start:
 
@@ -23,25 +29,31 @@ So when something breaks (and it will), that's not you failing. That's just
 Tuesday. An error message is a **clue**, not a telling-off. We'll show you how to
 read them.
 
-Three things to remember when you're stuck:
+Four things to try when you're stuck — in this order:
 
-1. **Read the error slowly.** It usually points at the problem.
-2. **Check the cheat-sheet** in [`../reference/`](../reference/).
-3. **Ask your mentor** — show them your code *and* the full error text.
+1. **Read the error slowly.** It usually points at the problem — often the very
+   last line tells you what went wrong.
+2. **Search the exact error text online.** Copy the key part of the message into
+   a search engine. Whatever you hit, someone has hit it before.
+3. **Check the matching cheat-sheet** in [`../reference/`](../reference/).
+4. **Peek at the worked answer.** A complete version lives on the `solution` git
+   branch — run `git switch solution` to read it, then `git switch main` to go
+   back to your own. Try your own way first; peek only when you're truly stuck.
 
 ---
 
-## What the week looks like 📅
+## What the half-day looks like ⏳
 
 Roughly, you'll move through this shape:
 
 1. **Get set up** — install the tools, run the starter app once. (One-off.)
 2. **Learn the building blocks** — Python, then tables of data, then how to
    download stock prices.
-3. **Learn the core skill** — filtering data to answer questions.
-4. **Build the dashboard** — glue it all together into the finished app.
+3. **Learn the core skill** — filtering a table down to the rows you care about.
+4. **Build the screener** — glue it all together into the finished app.
 
-You don't need to memorise anything. Look things up. That's normal.
+It's meant to fit in a half-day, so keep moving and don't polish too early. You
+don't need to memorise anything. Look things up. That's normal.
 
 ---
 
@@ -70,7 +82,7 @@ If you haven't already, go and do the setup:
 
 **➡️ [`../SETUP.md`](../SETUP.md)** — installs Python and the packages, and gets
 the starter app running in your browser. It takes about 15–20 minutes. Come back
-here when you can see the skeleton dashboard on screen.
+here when you can see the skeleton screener on screen.
 
 ---
 

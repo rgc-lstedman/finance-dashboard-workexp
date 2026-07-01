@@ -1,155 +1,153 @@
-# 📋 The Spec — what your dashboard should do
+# 📋 The Spec — what your screener should do
 
-Think of this as the **job description** for the app you're building. It's broken
-into **stages**. Each stage adds one feature. Do them in order — each builds on
-the last.
+Think of this as the **job description** for the app you're building this
+afternoon. It's broken into **stages**. Each stage adds one feature. Do them in
+order — each builds on the last.
+
+You are building a **stock screener**: an app that shows lots of companies at
+once (one row each), lets you **filter, sort and search** to find the interesting
+ones, and lets you **click into a single stock** to see its price chart.
 
 For every stage you'll see:
 
 - **Goal** — what you're adding, in plain English.
 - **Done when** — how you know it works (your checklist).
-- **Hints** — where to look. The matching guide and cheat-sheet go deeper.
+- **Hints** — the code you'll likely need. The guide and cheat-sheets go deeper.
 
 You edit **one file** the whole way through: **`app.py`**. Run it with
-`uv run streamlit run app.py` and refresh your browser as you go. Streamlit
-even has a **"Rerun"** button that appears when it notices you saved changes.
+`uv run streamlit run app.py` and refresh your browser as you go.
 
-> 🧭 Don't rush ahead. Get each stage actually working before starting the next.
-> A small thing that works beats a big thing that doesn't.
+> ⏱️ **This is a half-day project.** Stages 1–5 are the goal for the session.
+> The stretch goals and **[NEXT-STEPS.md](NEXT-STEPS.md)** are for afterwards —
+> you can keep working on this whenever you like.
+
+> 🧭 Get each stage actually working before starting the next. A small thing that
+> works beats a big thing that doesn't. Stuck? Peek at the finished version on the
+> `solution` branch: `git switch solution`.
 
 ---
 
-## Background: what the data looks like
+## Background: the screener table
 
-When you download a stock with `yfinance`, you get a **DataFrame** (a table). One
-row per trading day. The important columns are:
+The starter `app.py` already downloads the stocks for you and builds a table with
+**one row per company**. Each row has these columns:
 
 | Column | Meaning |
 | ------ | ------- |
-| `Open` | Price when the market opened that day |
-| `High` | Highest price during the day |
-| `Low` | Lowest price during the day |
-| `Close` | Price when the market closed (the "headline" price) |
-| `Volume` | How many shares changed hands that day |
+| `Ticker` (the row label) | The stock's short code, e.g. `AAPL` |
+| `Name` | The company name |
+| `Price` | The most recent closing price |
+| `Change %` | How much the price moved over the whole period |
+| `Day %` | How much it moved on the most recent day |
+| `Avg Volume` | Average number of shares traded per day (how "busy" it is) |
+| `Volatility %` | How bumpy the price is (bigger = wilder swings) |
 
-The **date** is the row label (the "index"). We mostly care about `Close`.
-
-We download it with this one line (the options just keep the column names simple —
-you'll learn what they mean in the guides):
-
-```python
-data = yf.download(ticker, period=period, auto_adjust=True,
-                   multi_level_index=False, progress=False)
-```
+**A screener is really just filtering and sorting this table** — which is the main
+skill this project teaches.
 
 ---
 
-## Stage 1 — Show data for one company 📥
+## Stage 1 — Run it and read the table ✅
 
-**Goal:** download the price history for a single ticker and show it as a table.
+**Goal:** get the starter app running and understand what you're looking at.
 
 **Done when:**
-- The app downloads data for a hard-coded ticker (e.g. `"AAPL"`).
-- The full table appears on the page.
-- You can see dates going down the side and `Open`/`Close`/`Volume` columns.
+- `uv run streamlit run app.py` shows a table of ~25 stocks in your browser.
+- You can point at a row and say what each number means.
 
 **Hints:**
-- Use the download line from the "Background" section above — it gives you the table.
-- `st.dataframe(data)` shows a table in Streamlit.
-- Guide: [`guides/03-getting-data-yfinance.md`](guides/03-getting-data-yfinance.md)
+- This stage is already done for you — it's your starting point.
+- Change the `page_icon` or title text to make it feel like yours.
 
 ---
 
-## Stage 2 — Let the user choose the company and time range 🎛️
+## Stage 2 — Let the user choose the time period 🎛️
 
-**Goal:** replace the hard-coded ticker with inputs the user controls.
+**Goal:** replace the fixed `period = "6mo"` with a control the user picks.
 
 **Done when:**
-- There's a text box where the user types a ticker (default it to `AAPL`).
-- There's a dropdown (or radio buttons) to pick the period: `1mo`, `6mo`, `1y`, `5y`.
-- Changing either one updates the table.
+- There's a dropdown in the sidebar to choose `1mo`, `6mo` or `1y`.
+- Changing it refreshes the numbers (the `Change %` column especially).
 
 **Hints:**
-- `st.text_input("Ticker", value="AAPL")` returns whatever the user typed.
-- `st.selectbox("Period", ["1mo", "6mo", "1y", "5y"])` returns the chosen option.
-- Put these in the **sidebar** with `st.sidebar.text_input(...)` to keep it tidy.
+- `period = st.sidebar.selectbox("History period", ["1mo", "6mo", "1y"], index=1)`
+- Put it **above** the `data = load_universe(period)` line so the choice is used.
 - Guide: [`guides/05-building-the-dashboard.md`](guides/05-building-the-dashboard.md)
 
 ---
 
-## Stage 3 — Show the headline numbers 🔢
+## Stage 3 — Filter the screener 🔍 (the main event)
 
-**Goal:** show a few key figures at the top so you don't have to read the whole table.
+**Goal:** let the user narrow the table down to the stocks they care about.
 
-**Done when:**
-- You show the **latest closing price**.
-- You show the **change** vs the start of the period (as a number or %).
-- You show the **highest** and **lowest** close over the period.
+**Done when (do at least the first two):**
+- A **search box** that keeps only rows whose ticker or name matches what's typed.
+- A **slider** for minimum `Change %` (hide stocks that didn't move enough).
+- A **slider** for minimum `Avg Volume` (hide the quiet stocks).
 
 **Hints:**
-- `data["Close"]` is the column of closing prices.
-- `.iloc[-1]` is the last value, `.iloc[0]` is the first, `.max()` / `.min()` do what they say.
-- `st.metric("Latest close", value, delta)` shows a nice number with an up/down arrow.
+- Work on a copy so you never lose the full list: `view = data.copy()`.
+- Filtering is a *boolean mask*: `view = view[view["Change %"] >= min_change]`.
+- Search: `text = st.sidebar.text_input("Search").upper()` then keep rows where
+  `view.index.str.contains(text) | view["Name"].str.upper().str.contains(text)`.
+- This is the heart of the project. Guide: [`guides/04-filtering-searching.md`](guides/04-filtering-searching.md)
+
+---
+
+## Stage 4 — Sort / rank the results 🏆
+
+**Goal:** let the user rank the table by any column.
+
+**Done when:**
+- A dropdown chooses which column to sort by.
+- The biggest values come first (the "winners" at the top).
+
+**Hints:**
+- `sort_col = st.sidebar.selectbox("Sort by", ["Change %", "Day %", "Price", "Avg Volume", "Volatility %"])`
+- `view = view.sort_values(sort_col, ascending=False)`
 - Cheat-sheet: [`reference/pandas-cheatsheet.md`](reference/pandas-cheatsheet.md)
 
 ---
 
-## Stage 4 — Search and filter the data 🔍
+## Stage 5 — Look at one stock 📈
 
-**Goal:** let the user narrow the table down to the rows they care about.
-
-**Done when (pick at least two):**
-- A checkbox "Only show up days" that keeps rows where `Close > Open`.
-- A slider for **minimum volume** that hides low-activity days.
-- A date filter that keeps only rows on/after a chosen date.
-
-**Hints:**
-- Filtering a DataFrame: `data[data["Close"] > data["Open"]]`.
-- A slider: `st.slider("Min volume", 0, int(data["Volume"].max()))`.
-- This is the heart of the project — understanding *filtering* is the main skill.
-- Guide: [`guides/04-filtering-searching.md`](guides/04-filtering-searching.md)
-
----
-
-## Stage 5 — Draw a chart 📈
-
-**Goal:** turn the numbers into a picture.
+**Goal:** pick a single company from your results and chart its price.
 
 **Done when:**
-- There's a line chart of the closing price over time.
-- The chart updates when the user changes the ticker or period.
+- A dropdown lets the user pick one ticker from the filtered table.
+- You show its recent price as a line chart (and maybe its latest price).
 
 **Hints:**
-- The quick way: `st.line_chart(data["Close"])`.
-- The prettier way: build a `plotly` figure and use `st.plotly_chart(fig)`.
-- Cheat-sheet: [`reference/streamlit-cheatsheet.md`](reference/streamlit-cheatsheet.md)
+- `choice = st.selectbox("Pick a stock", view.index)`
+- Download just that one, using the flat form so `["Close"]` is a single column:
+  ```python
+  one = yf.download(choice, period=period, auto_adjust=True,
+                    multi_level_index=False, progress=False)
+  ```
+- `st.line_chart(one["Close"])`, and `st.metric("Latest", f"${one['Close'].iloc[-1]:,.2f}")`.
+- Guide: [`guides/05-building-the-dashboard.md`](guides/05-building-the-dashboard.md)
 
 ---
 
-## Stretch goals — only if you've finished the above 🌟
+## 🌟 Stretch goals (for afterwards)
 
-These are optional. Pick whatever sounds fun.
+Finished stages 1–5? Nice work. Pick anything from here or from
+**[NEXT-STEPS.md](NEXT-STEPS.md)**:
 
-1. **Moving average.** Add a smoothed line: `data["Close"].rolling(20).mean()`.
-   Plot it on the same chart as the price.
-2. **Compare two companies.** Let the user enter a second ticker and plot both
-   closing prices together. Tip: downloading a *list* of tickers
-   (`yf.download(["AAPL", "MSFT"], ...)`) gives you "multi-level" columns like
-   `data["Close"]["AAPL"]` — the guides explain how to read them.
-3. **Download button.** Let the user save the (filtered) table as a CSV with
-   `st.download_button(...)`.
-4. **Best/worst day.** Work out and display the single biggest up-day and
-   down-day in the period.
-5. **Make it yours.** Add an emoji, a title, colours, a "fun fact" — anything.
+1. **More filters** — max `Volatility %`, or "only stocks that fell" (`Change % < 0`).
+2. **Colour the winners and losers** — style the `Change %` column green/red.
+3. **A moving average** on the single-stock chart: `one["Close"].rolling(20).mean()`.
+4. **Add your own companies** to the `UNIVERSE` dictionary at the top of `app.py`.
+5. **Download button** — let the user save the filtered table as a CSV.
+6. **Best & worst** — show which stock rose most and which fell most today.
 
 ---
 
 ## What "finished" looks like
 
-A dashboard where you can type any ticker, pick a period, see the headline
-numbers, filter the table, and view a chart — and it all updates as you change
-the controls. If you get there, you've built a real, useful data app. 👏
+A screener where you choose a period, filter and sort a table of stocks to find
+the ones you want, and click into any one of them to see its chart — all updating
+as you change the controls. That's a real, useful data app. 👏
 
-> 🔎 Want to see one way of doing it? A complete version lives on the
-> **`solution`** branch: `git switch solution`. Try to build yours first — then
-> compare. There's no single "right" answer.
+> 🔎 Want to compare with one finished version? `git switch solution`. Try to
+> build yours first — there's no single "right" answer.

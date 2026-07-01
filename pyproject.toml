@@ -1,7 +1,7 @@
 [project]
 name = "finance-dashboard-workexp"
 version = "0.1.0"
-description = "Work-experience project: build a finance dashboard with Python, yfinance and Streamlit."
+description = "Work-experience project: build a stock screener with Python, yfinance and Streamlit."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

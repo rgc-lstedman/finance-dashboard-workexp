@@ -1,69 +1,90 @@
 """
-📈 Finance Dashboard — starter skeleton
-=======================================
+🔎 Stock Screener — starter skeleton
+====================================
 
-This is the file you'll grow into a full dashboard. Right now it does the
-minimum: it downloads data for one company and shows it in a table. Your job,
-following SPEC.md, is to build it up stage by stage.
+A "screener" looks at lots of stocks at once — one row per company — and lets you
+filter, sort and search to find the interesting ones. Then you can pick one and
+look at its price chart.
+
+Right now this file just downloads the stocks and shows the table. Your job,
+following SPEC.md, is to add the filtering, sorting and the single-stock view.
 
 Run it with:
 
     uv run streamlit run app.py
 
 Every time you save this file, go to the browser and click "Rerun" (top-right).
-
 Look for the  # TODO (Stage N)  comments — they mark where each stage goes.
 """
 
+import pandas as pd
 import streamlit as st
 import yfinance as yf
 
-# ---------------------------------------------------------------------------
-# Page setup — the title and browser-tab name. Change these to make it yours!
-# ---------------------------------------------------------------------------
-st.set_page_config(page_title="My Finance Dashboard", page_icon="📈")
-st.title("📈 My Finance Dashboard")
+st.set_page_config(page_title="Stock Screener", page_icon="🔎", layout="wide")
+st.title("🔎 Stock Screener")
 st.write("A work-experience project. Follow SPEC.md to build me up!")
 
 
 # ---------------------------------------------------------------------------
-# Stage 2 (TODO): let the user choose the ticker and period.
-# For now these are fixed. Replace them with st.text_input / st.selectbox.
+# The list of stocks our screener looks at. Ticker -> company name.
+# Want different companies? Add or remove lines here (it's just a dictionary).
 # ---------------------------------------------------------------------------
-ticker = "AAPL"
+UNIVERSE = {
+    "AAPL": "Apple", "MSFT": "Microsoft", "GOOGL": "Alphabet", "AMZN": "Amazon",
+    "META": "Meta", "NVDA": "Nvidia", "TSLA": "Tesla", "AMD": "AMD",
+    "INTC": "Intel", "NFLX": "Netflix", "JPM": "JPMorgan", "V": "Visa",
+    "MA": "Mastercard", "DIS": "Disney", "KO": "Coca-Cola", "PEP": "PepsiCo",
+    "MCD": "McDonald's", "NKE": "Nike", "XOM": "Exxon Mobil", "CVX": "Chevron",
+    "PFE": "Pfizer", "JNJ": "Johnson & Johnson", "WMT": "Walmart",
+    "BA": "Boeing", "SBUX": "Starbucks",
+}
+
+
+# ---------------------------------------------------------------------------
+# This function downloads every stock in one go and builds a summary table:
+# one row per company, with the numbers a screener cares about.
+# You don't need to change it — you build your screener on top of it.
+#
+# @st.cache_data means the download only happens once (not every time you move a
+# slider), so the app stays fast.
+# ---------------------------------------------------------------------------
+@st.cache_data(ttl=3600)
+def load_universe(period):
+    # Downloading a LIST of tickers gives "multi-level" columns, so raw["Close"]
+    # is a table with one column per stock. (See guides 03 and 05.)
+    raw = yf.download(list(UNIVERSE), period=period, auto_adjust=True, progress=False)
+    close = raw["Close"]
+    volume = raw["Volume"]
+    daily_returns = close.pct_change()
+
+    summary = pd.DataFrame({
+        "Name": pd.Series(UNIVERSE),
+        "Price": close.iloc[-1],
+        "Change %": (close.iloc[-1] / close.iloc[0] - 1) * 100,      # over the whole period
+        "Day %": (close.iloc[-1] / close.iloc[-2] - 1) * 100,        # most recent day
+        "Avg Volume": volume.mean(),
+        "Volatility %": daily_returns.std() * 100,                   # how bumpy the price is
+    })
+    summary.index.name = "Ticker"
+    return summary.dropna(subset=["Price"]).round(2)
+
+
+# Stage 2 (TODO): let the user choose the period with st.sidebar.selectbox(...)
 period = "6mo"
 
+data = load_universe(period)
 
-# ---------------------------------------------------------------------------
-# Stage 1: download the data.
-# `yf.download` returns a pandas DataFrame — a table of prices, one row per day.
-#
-# The extra options keep things simple for now:
-#   auto_adjust=True        -> tidy prices, one "Close" column
-#   multi_level_index=False -> plain column names (Open, High, Close ...) so that
-#                              `data["Close"]` gives you a single column.
-#   progress=False          -> no download bar cluttering the app
-# (You'll meet the fancier "multi-level" columns later, when comparing two companies.)
-# ---------------------------------------------------------------------------
-st.subheader(f"Showing: {ticker}  (last {period})")
+# Stage 3 (TODO): add filters (search box / min Change % / min Avg Volume) that
+#                 narrow `data` down before it is shown below.
 
-data = yf.download(
-    ticker,
-    period=period,
-    auto_adjust=True,
-    multi_level_index=False,
-    progress=False,
-)
+# Stage 4 (TODO): sort the table by a column the user picks (data.sort_values(...)).
 
-if data.empty:
-    st.error(f"No data found for '{ticker}'. Is the ticker spelled correctly?")
-else:
-    # Stage 3 (TODO): show headline numbers here with st.metric(...)
+# Stage 5 (TODO): let the user pick one stock and show its price chart, e.g.
+#   choice = st.selectbox("Pick a stock", data.index)
+#   one = yf.download(choice, period=period, auto_adjust=True,
+#                     multi_level_index=False, progress=False)
+#   st.line_chart(one["Close"])
 
-    # Stage 4 (TODO): add filters (checkbox / slider / date) that change `data`
-    # before it's displayed below.
-
-    # Stage 5 (TODO): draw a chart, e.g. st.line_chart(data["Close"])
-
-    # Show the raw table (Stage 1). This already works.
-    st.dataframe(data)
+st.subheader(f"{len(data)} stocks")
+st.dataframe(data, use_container_width=True)

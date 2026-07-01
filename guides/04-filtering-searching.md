@@ -105,8 +105,9 @@ The opposite, "down days":
 data[data["Close"] < data["Open"]]
 ```
 
-> **In the app:** Stage 4 puts this behind a checkbox — tick "Only show up days"
-> and the table filters itself to `data[data["Close"] > data["Open"]]`.
+> **In the app:** your screener leans on this exact move — a boolean mask — to
+> filter its table of companies down to the interesting ones. You'll see it on a
+> real screener table at the end of this guide.
 
 ---
 
@@ -214,8 +215,8 @@ Between two dates uses `&`:
 data[(data.index >= "2024-03-01") & (data.index <= "2024-04-30")]
 ```
 
-> **In the app:** Stage 4 offers a date filter — the user picks a start date and
-> the table keeps only rows from that date onward.
+> 💡 The same mask idea works whatever the index holds — dates here, or stock
+> tickers in a screener table (more on that just below).
 
 ---
 
@@ -238,6 +239,54 @@ print(up_days / total)
 
 ---
 
+## Filtering a screener table 🧮
+
+Everything above filtered **one company's daily prices** — one row per *day*. But
+the exact same moves work on a table where each row is a whole **company**. That
+table is the heart of a stock screener.
+
+Imagine a DataFrame called `universe` with **one row per stock**, the ticker as
+the index, and a handful of summary columns:
+
+```
+        Name        Price  Change %  Day %   Avg Volume  Volatility %
+Ticker
+AAPL    Apple      187.25      8.40   1.10   58_000_000          1.80
+MSFT    Microsoft  402.10     12.30  -0.40   22_000_000          1.50
+TSLA    Tesla      248.50     -6.20   2.90   95_000_000          3.40
+NVDA    Nvidia     880.00     22.10   0.75  41_000_000          2.60
+```
+
+Now the *same* boolean-mask filtering answers questions about **stocks** instead
+of days:
+
+```python
+universe[universe["Change %"] > 5]              # only stocks up more than 5%
+universe[universe["Avg Volume"] > 20_000_000]   # only heavily-traded stocks
+```
+
+Ranking works too — sort the winners to the top:
+
+```python
+universe.sort_values("Change %", ascending=False)   # biggest gainers first
+```
+
+And you combine conditions exactly like before, with `&` and brackets around each
+part:
+
+```python
+universe[(universe["Change %"] > 0) & (universe["Volatility %"] < 3)]
+# stocks that are up, but not too jumpy
+```
+
+That's it — **this is literally what a screener does.** It takes a table of every
+stock and filters it down to the interesting ones: the big movers, the busy ones,
+the steady ones. You already know how; it's the same `data[mask]` move, pointed at
+a table of companies instead of a table of days. In Guide 5 you'll wire these
+filters up to sliders and a search box so anyone can drive them. 🎛️
+
+---
+
 ## ✅ Check yourself
 
 This is the core skill, so it's worth being sure. Can you:
@@ -249,7 +298,7 @@ This is the core skill, so it's worth being sure. Can you:
 - Find the date of the highest close with `.idxmax()`?
 - Keep only rows on or after a given date?
 
-If those feel doable, you're ready to build the dashboard. If not, that's fine —
+If those feel doable, you're ready to build the screener. If not, that's fine —
 go back to the notebook and try each one on real data until it clicks.
 
 ---
@@ -263,10 +312,10 @@ the one to really take your time over:
 
 Quick lookups: [`../reference/pandas-cheatsheet.md`](../reference/pandas-cheatsheet.md).
 
-You now have everything for **Stage 4** of the [`../SPEC.md`](../SPEC.md) — the
-heart of the project.
+You now have everything for the filtering stage of the [`../SPEC.md`](../SPEC.md)
+— the heart of the project.
 
 ---
 
 **What's next →** [`05-building-the-dashboard.md`](05-building-the-dashboard.md)
-— put it all together into the finished web app. 🎉
+— put it all together into the finished screener. 🎉

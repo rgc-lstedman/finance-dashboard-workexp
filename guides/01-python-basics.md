@@ -1,6 +1,6 @@
 # 🐍 Guide 1 — Python basics
 
-This guide teaches you just enough Python to build the dashboard. We'll keep
+This guide teaches you just enough Python to build the screener. We'll keep
 every example tied to something you'll actually use — tickers, prices, days.
 
 You don't need to write any of this into `app.py` yet. The best way to learn is
@@ -60,8 +60,9 @@ total_value = price * shares
 print(total_value)   # 1872.5
 ```
 
-> **In the app:** your dashboard will store the company the user typed in a
-> variable called `ticker`, and the downloaded table in one called `data`.
+> **In the app:** your screener will store the whole table of companies in a
+> variable called `data`, and the one ticker the user clicks into in a variable
+> called `choice`.
 
 **Try this 👉** make a variable `company = "MSFT"` and print it.
 
