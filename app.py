@@ -56,13 +56,17 @@ def load_universe(period):
     raw = yf.download(list(UNIVERSE), period=period, auto_adjust=True, progress=False)
     close = raw["Close"]
     volume = raw["Volume"]
+    if close.empty:
+        return pd.DataFrame()  # nothing came back (e.g. no internet)
+
     daily_returns = close.pct_change()
+    prev_close = close.iloc[-2] if len(close) >= 2 else close.iloc[-1]
 
     summary = pd.DataFrame({
         "Name": pd.Series(UNIVERSE),
         "Price": close.iloc[-1],
         "Change %": (close.iloc[-1] / close.iloc[0] - 1) * 100,      # over the whole period
-        "Day %": (close.iloc[-1] / close.iloc[-2] - 1) * 100,        # most recent day
+        "Day %": (close.iloc[-1] / prev_close - 1) * 100,            # most recent day
         "Avg Volume": volume.mean(),
         "Volatility %": daily_returns.std() * 100,                   # how bumpy the price is
     })
@@ -74,6 +78,10 @@ def load_universe(period):
 period = "6mo"
 
 data = load_universe(period)
+
+if data.empty:
+    st.error("Couldn't load market data. Check your internet connection and refresh.")
+    st.stop()
 
 # Stage 3 (TODO): add filters (search box / min Change % / min Avg Volume) that
 #                 narrow `data` down before it is shown below.
