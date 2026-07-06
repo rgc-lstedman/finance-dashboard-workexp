@@ -41,7 +41,32 @@ You should end up with a folder called `finance-dashboard-workexp` containing
 
 ---
 
-## 2. Install `uv`
+## 2. Get a code editor (IDE)
+
+You'll be editing one file — `app.py` — the whole way through this project, so
+you need a **code editor** (often called an **IDE**, short for "Integrated
+Development Environment"). Think of it as a word processor built for code: it
+colours your Python, spots typos, and helps you run things.
+
+All of these are **free**. Not sure which to pick? Choose **VS Code**.
+
+| Editor | Good for | Download |
+| ------ | -------- | -------- |
+| **Visual Studio Code** | The popular all-rounder. Windows, Mac & Linux. | <https://code.visualstudio.com/> |
+| **PyCharm Community** | Python-focused, lots built in. Free "Community" edition. | <https://www.jetbrains.com/pycharm/download/> |
+| **Thonny** | The simplest — built for people new to Python. | <https://thonny.org/> |
+| **Zed** | Fast and lightweight, if you want something minimal. | <https://zed.dev/> |
+
+> 💡 In VS Code, install the free **Python** extension when it offers to (it pops
+> up the first time you open `app.py`). You can even open a terminal *inside* the
+> editor — **Terminal → New Terminal** — and run the `uv` commands from there.
+
+To open the project: launch your editor, choose **File → Open Folder…**, and pick
+the `finance-dashboard-workexp` folder.
+
+---
+
+## 3. Install `uv`
 
 ### 🪟 Windows
 
@@ -85,7 +110,7 @@ You should end up with a folder called `finance-dashboard-workexp` containing
 
 ---
 
-## 3. Open the project in a terminal
+## 4. Open the project in a terminal
 
 You need your terminal to be "inside" the project folder. The command is `cd`
 ("change directory"), followed by the path to the folder.
@@ -117,7 +142,7 @@ You should see `app.py` and `README.md` in the list.
 
 ---
 
-## 4. Let `uv` set up Python and the packages
+## 5. Let `uv` set up Python and the packages
 
 Run this **one** command from inside the project folder:
 
@@ -136,7 +161,7 @@ prompt back with no errors.
 
 ---
 
-## 5. Run the screener 🎉
+## 6. Run the screener 🎉
 
 ```bash
 uv run streamlit run app.py
@@ -154,7 +179,7 @@ To **stop** the app, go back to the terminal and press **`Ctrl + C`**.
 
 ---
 
-## 6. Run the interactive lessons (notebooks)
+## 7. Run the interactive lessons (notebooks)
 
 The `notebooks/` folder has lessons you run bit-by-bit. To open them:
 

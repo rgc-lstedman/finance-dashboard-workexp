@@ -78,7 +78,6 @@ def load_universe(period):
 period = "6mo"
 
 data = load_universe(period)
-
 if data.empty:
     st.error("Couldn't load market data. Check your internet connection and refresh.")
     st.stop()
