@@ -18,21 +18,7 @@ this guide is written so you can follow it **on your own** — no teacher requir
 
 A screener that looks something like this:
 
-```
- ┌──────────────────────────────────────────────────────────────┐
- │  🔎 Stock Screener                                            │
- │  ┌─────────────┐                                             │
- │  │ Sidebar     │   Ticker  Name        Price   Change %  ... │
- │  │ Period ▾    │   NVDA    Nvidia       120.9    +18.4       │
- │  │ Search [__] │   AAPL    Apple        212.4     +6.1       │
- │  │ Min chg ▁▂▃ │   MSFT    Microsoft    467.0     +4.9       │
- │  │ Sort by  ▾  │   TSLA    Tesla        330.5     -2.3       │
- │  └─────────────┘   ...                                       │
- │                                                              │
- │   Pick a stock: [ NVDA ▾ ]     ╱╲    ← price chart of the    │
- │                               ╱  ╲╱╲    one you picked       │
- └──────────────────────────────────────────────────────────────┘
-```
+![The finished Stock Screener: a sidebar of filters on the left, a table of matching stocks, and a price chart for the stock you pick.](docs/images/screener.png)
 
 A screener is really just **filtering and sorting a table** — which happens to be
 one of the most useful skills in all of programming.
