@@ -1,8 +1,8 @@
 # 📋 The Spec — what your screener should do
 
-Think of this as the **job description** for the app you're building this
-afternoon. It's broken into **stages**. Each stage adds one feature. Do them in
-order — each builds on the last.
+Think of this as the **job description** for the app you're building. It's broken
+into **stages**. Each stage adds one feature. Do them in order — each builds on
+the last.
 
 You are building a **stock screener**: an app that shows lots of companies at
 once (one row each), lets you **filter, sort and search** to find the interesting
@@ -17,9 +17,9 @@ For every stage you'll see:
 You edit **one file** the whole way through: **`app.py`**. Run it with
 `uv run streamlit run app.py` and refresh your browser as you go.
 
-> ⏱️ **This is a half-day project.** Stages 1–5 are the goal for the session.
-> The stretch goals and **[NEXT-STEPS.md](NEXT-STEPS.md)** are for afterwards —
-> you can keep working on this whenever you like.
+> 🎯 **Stages 1–5 are the goal.** The stretch goals and
+> **[NEXT-STEPS.md](NEXT-STEPS.md)** are for afterwards — you can keep working on
+> this whenever you like.
 
 > 🧭 Get each stage actually working before starting the next. A small thing that
 > works beats a big thing that doesn't. Stuck? Peek at the finished version on the
@@ -72,7 +72,7 @@ skill this project teaches.
 **Hints:**
 - `period = st.sidebar.selectbox("History period", ["1mo", "6mo", "1y"], index=1)`
 - Put it **above** the `data = load_universe(period)` line so the choice is used.
-- Guide: [`guides/05-building-the-dashboard.md`](guides/05-building-the-dashboard.md)
+- Guide: [`guides/05-building-the-dashboard.md`](../guides/05-building-the-dashboard.md)
 
 ---
 
@@ -90,7 +90,7 @@ skill this project teaches.
 - Filtering is a *boolean mask*: `view = view[view["Change %"] >= min_change]`.
 - Search: `text = st.sidebar.text_input("Search").upper()` then keep rows where
   `view.index.str.contains(text) | view["Name"].str.upper().str.contains(text)`.
-- This is the heart of the project. Guide: [`guides/04-filtering-searching.md`](guides/04-filtering-searching.md)
+- This is the heart of the project. Guide: [`guides/04-filtering-searching.md`](../guides/04-filtering-searching.md)
 
 ---
 
@@ -105,7 +105,7 @@ skill this project teaches.
 **Hints:**
 - `sort_col = st.sidebar.selectbox("Sort by", ["Change %", "Day %", "Price", "Avg Volume", "Volatility %"])`
 - `view = view.sort_values(sort_col, ascending=False)`
-- Cheat-sheet: [`reference/pandas-cheatsheet.md`](reference/pandas-cheatsheet.md)
+- Cheat-sheet: [`reference/pandas-cheatsheet.md`](../reference/pandas-cheatsheet.md)
 
 ---
 
@@ -125,7 +125,7 @@ skill this project teaches.
                     multi_level_index=False, progress=False)
   ```
 - `st.line_chart(one["Close"])`, and `st.metric("Latest", f"${one['Close'].iloc[-1]:,.2f}")`.
-- Guide: [`guides/05-building-the-dashboard.md`](guides/05-building-the-dashboard.md)
+- Guide: [`guides/05-building-the-dashboard.md`](../guides/05-building-the-dashboard.md)
 
 ---
 

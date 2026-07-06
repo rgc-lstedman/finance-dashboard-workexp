@@ -1,7 +1,7 @@
 # 👋 Welcome — start here
 
-Hello, and welcome to your stock screener project! In a single **half-day**,
-working on your own, you're going to build a real, working web app — one that
+Hello, and welcome to your stock screener project! Working on your own, you're
+going to build a real, working web app — one that
 downloads live prices for a whole **list** of companies and shows them as a
 table with **one row per company**. Then you can filter, sort and search to find
 the ones you care about, and click into any single stock to see its chart.
@@ -42,7 +42,7 @@ Four things to try when you're stuck — in this order:
 
 ---
 
-## What the half-day looks like ⏳
+## What you'll do ⏳
 
 Roughly, you'll move through this shape:
 
@@ -52,8 +52,8 @@ Roughly, you'll move through this shape:
 3. **Learn the core skill** — filtering a table down to the rows you care about.
 4. **Build the screener** — glue it all together into the finished app.
 
-It's meant to fit in a half-day, so keep moving and don't polish too early. You
-don't need to memorise anything. Look things up. That's normal.
+Keep moving and don't polish too early. You don't need to memorise anything.
+Look things up. That's normal.
 
 ---
 
@@ -64,10 +64,10 @@ job. Use them together:
 
 | Material | What it's for | Where |
 | -------- | ------------- | ----- |
-| **SETUP** | Install everything and run the app once. **Do this first.** | [`../SETUP.md`](../SETUP.md) |
+| **SETUP** | Install everything and run the app once. **Do this first.** | [`../docs/SETUP.md`](../docs/SETUP.md) |
 | **Guides** (you're reading one) | Slow, friendly lessons that teach each idea from zero. | `guides/` |
 | **Notebooks** | Interactive lessons you *run and edit yourself* to practise. | [`../notebooks/`](../notebooks/) |
-| **The Spec** | The "job description": what the finished app must do, in stages. | [`../SPEC.md`](../SPEC.md) |
+| **The Spec** | The "job description": what the finished app must do, in stages. | [`../docs/SPEC.md`](../docs/SPEC.md) |
 | **Reference** | Short cheat-sheets to look up syntax once you're going. | [`../reference/`](../reference/) |
 
 A good rhythm is: **read a guide → practise in the matching notebook → look
@@ -80,9 +80,9 @@ final app.
 
 If you haven't already, go and do the setup:
 
-**➡️ [`../SETUP.md`](../SETUP.md)** — installs Python and the packages, and gets
-the starter app running in your browser. It takes about 15–20 minutes. Come back
-here when you can see the skeleton screener on screen.
+**➡️ [`../docs/SETUP.md`](../docs/SETUP.md)** — installs Python and the packages, and gets
+the starter app running in your browser. Come back here when you can see the
+skeleton screener on screen.
 
 ---
 

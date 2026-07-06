@@ -204,7 +204,7 @@ hands-on:
 Quick lookups are in the
 [`../reference/yfinance-cheatsheet.md`](../reference/yfinance-cheatsheet.md).
 
-This is also enough to tackle **Stage 1** of the [`../SPEC.md`](../SPEC.md) — go
+This is also enough to tackle **Stage 1** of the [`../docs/SPEC.md`](../docs/SPEC.md) — go
 and make the starter app show a table for a company you choose. 📈
 
 ---

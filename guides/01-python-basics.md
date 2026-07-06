@@ -274,7 +274,7 @@ Open the first notebook and run through it, changing values as you go:
 
 **➡️ [`../notebooks/01_python_basics.ipynb`](../notebooks/01_python_basics.ipynb)**
 
-Start it with `uv run jupyter lab` (see [`../SETUP.md`](../SETUP.md) if you need
+Start it with `uv run jupyter lab` (see [`../docs/SETUP.md`](../docs/SETUP.md) if you need
 a reminder), then double-click the notebook in the file list on the left.
 
 Quick lookups live in the

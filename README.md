@@ -1,6 +1,6 @@
 # 🔎 Stock Screener — Work Experience Project
 
-Welcome! This afternoon you're going to build a **stock screener**: a small web
+Welcome! You're going to build a **stock screener**: a small web
 app that downloads real stock-market data, shows lots of companies at once, and
 lets you **search, filter and sort** them to find the interesting ones — then
 click into any single stock to see its price chart.
@@ -8,9 +8,9 @@ click into any single stock to see its price chart.
 You do **not** need any previous coding experience. Every step is explained, and
 this guide is written so you can follow it **on your own** — no teacher required.
 
-> ⏱️ **This is a half-day project.** The goal for the session is a working
-> screener (Stages 1–5 in [SPEC.md](SPEC.md)). It's also yours to **keep working
-> on afterwards** — [NEXT-STEPS.md](NEXT-STEPS.md) is full of ideas.
+> 🎯 **The goal** is a working screener (Stages 1–5 in [SPEC.md](docs/SPEC.md)). It's
+> also yours to **keep working on afterwards** — [NEXT-STEPS.md](docs/NEXT-STEPS.md)
+> is full of ideas.
 
 ---
 
@@ -52,20 +52,52 @@ one of the most useful skills in all of programming.
 
 ---
 
+## ⚡ Install `uv` first
+
+Everything here runs through **`uv`** — it installs Python, the packages, and
+runs the app for you. Install it once, then never worry about Python versions.
+
+- **🪟 Windows** (open **Windows PowerShell**):
+
+  ```powershell
+  powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+  ```
+
+- **🍎 macOS / Linux** (open **Terminal**):
+
+  ```bash
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
+
+Then **close the terminal, open a new one**, and check it worked:
+
+```bash
+uv --version
+```
+
+You should see something like `uv 0.10.7`. Full walkthrough and troubleshooting
+in **[SETUP.md](docs/SETUP.md)**.
+
+---
+
 ## 🚀 How to start (read these in order)
 
-1. **[SETUP.md](SETUP.md)** — install everything and get the app running. **Do this first.**
-2. **[SCHEDULE.md](SCHEDULE.md)** — a suggested plan for the half day, so you know what to do when.
+1. **[SETUP.md](docs/SETUP.md)** — install everything and get the app running. **Do this first.** (Just download the project zip and unzip it — no coding tools needed yet.)
+2. **[SCHEDULE.md](docs/SCHEDULE.md)** — a suggested order to work through it, so you know what to do when.
 3. **[guides/00-welcome.md](guides/00-welcome.md)** — the friendly, step-by-step lessons. Start here to learn.
-4. **[SPEC.md](SPEC.md)** — the "job": what your screener should do, stage by stage.
+4. **[SPEC.md](docs/SPEC.md)** — the "job": what your screener should do, stage by stage.
 5. **[notebooks/](notebooks/)** — interactive lessons you run and edit yourself.
 6. **[reference/](reference/)** — short cheat-sheets to look things up once you're going.
-7. **[NEXT-STEPS.md](NEXT-STEPS.md)** — where to take it after today.
+7. **[NEXT-STEPS.md](docs/NEXT-STEPS.md)** — where to take it next.
 
 There are **two learning tracks** — use whichever suits you:
 
 - 📖 **`guides/`** — walks you through everything slowly, assumes zero experience.
 - ⚡ **`reference/`** — quick cheat-sheets for when you just need the syntax.
+
+> 🌿 Keep seeing the word **"git"** and wondering what it is? It's optional for
+> this project — **[GIT.md](docs/GIT.md)** explains it in plain English if you're
+> curious.
 
 ---
 
@@ -74,10 +106,12 @@ There are **two learning tracks** — use whichever suits you:
 ```
 finance-dashboard-workexp/
 ├── README.md          ← you are here
-├── SETUP.md           ← install & run (start here)
-├── SCHEDULE.md        ← a plan for the half day
-├── SPEC.md            ← what to build, stage by stage
-├── NEXT-STEPS.md      ← ideas for afterwards
+├── docs/              ← all the project docs
+│   ├── SETUP.md       ← install & run (start here)
+│   ├── GIT.md         ← optional: what "git" means (you don't need it)
+│   ├── SCHEDULE.md    ← a suggested order to work through it
+│   ├── SPEC.md        ← what to build, stage by stage
+│   └── NEXT-STEPS.md  ← ideas for afterwards
 ├── app.py             ← the screener you'll grow (starts as a skeleton)
 ├── pyproject.toml     ← the list of packages the project needs
 ├── guides/            ← step-by-step lessons

@@ -390,7 +390,7 @@ working screener.** 👏
 
 Finished the core? There's a list of things to try next — a moving-average line,
 a "Day %" gainers-vs-losers split, more companies in `UNIVERSE`, a download
-button, and more — in **[`../NEXT-STEPS.md`](../NEXT-STEPS.md)**. Pick whatever
+button, and more — in **[`../docs/NEXT-STEPS.md`](../docs/NEXT-STEPS.md)**. Pick whatever
 sounds fun.
 
 ---

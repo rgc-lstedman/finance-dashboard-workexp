@@ -7,7 +7,7 @@ filter, sort and search to find the interesting ones. Then you can pick one and
 look at its price chart.
 
 Right now this file just downloads the stocks and shows the table. Your job,
-following SPEC.md, is to add the filtering, sorting and the single-stock view.
+following docs/SPEC.md, is to add the filtering, sorting and the single-stock view.
 
 Run it with:
 
@@ -23,7 +23,7 @@ import yfinance as yf
 
 st.set_page_config(page_title="Stock Screener", page_icon="🔎", layout="wide")
 st.title("🔎 Stock Screener")
-st.write("A work-experience project. Follow SPEC.md to build me up!")
+st.write("A work-experience project. Follow docs/SPEC.md to build me up!")
 
 
 # ---------------------------------------------------------------------------

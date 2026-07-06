@@ -1,7 +1,7 @@
 # 🛠️ Setup — get everything installed and running
 
 This guide takes you from a **brand-new computer with no Python** to a running
-finance dashboard. It should take about **15–20 minutes**.
+finance dashboard.
 
 We use a single tool called **`uv`** to do the hard work. `uv` installs the
 right version of Python *for this project*, downloads the packages we need, and
@@ -18,7 +18,6 @@ Follow the section for **your** operating system, then everyone does the same
 - A computer you can install software on (if it's a locked-down school or work
   laptop, whoever manages it may need to allow installs).
 - An internet connection.
-- About 20 minutes.
 
 You do **not** need to install Python yourself — `uv` does that for you.
 
@@ -26,18 +25,19 @@ You do **not** need to install Python yourself — `uv` does that for you.
 
 ## 1. Get the project files
 
-If you were given a link to download a `.zip`, unzip it somewhere you'll find
-again — for example your **Desktop** or **Documents** folder.
+**The easy way — the zip:** you were given a link to download the project as a
+**`.zip`**. Download it, then **unzip** it somewhere you'll find again — for
+example your **Desktop** or **Documents** folder.
 
-If you were given a **git** link instead, open a terminal (see below for how) and run:
+(You've probably already done this — it's how you're reading this file.)
 
-```bash
-git clone <the-repo-url-you-were-given>
-cd finance-dashboard-workexp
-```
+You should end up with a folder called `finance-dashboard-workexp` containing
+`README.md`, `app.py`, and the rest. That's all you need — carry on to step 2.
 
-Either way, you should end up with a folder called `finance-dashboard-workexp`
-containing `README.md`, `app.py`, and the rest.
+> 🌿 **Prefer to use Git?** You don't have to — the zip works perfectly. But if
+> you know Git (or want to learn it), see **[GIT.md](GIT.md)**. Using Git also
+> lets you peek at the finished `solution` version. If you're not sure what any
+> of that means, ignore it and use the zip.
 
 ---
 
@@ -147,7 +147,7 @@ screener. If it doesn't open automatically, copy that address into your browser.
 
 You now have a running app! It's only a skeleton for now — a table of stocks. The
 rest of the project is about growing it into a real screener. Follow
-**[guides/00-welcome.md](guides/00-welcome.md)** (or the plan in
+**[guides/00-welcome.md](../guides/00-welcome.md)** (or the plan in
 **[SCHEDULE.md](SCHEDULE.md)**) next.
 
 To **stop** the app, go back to the terminal and press **`Ctrl + C`**.

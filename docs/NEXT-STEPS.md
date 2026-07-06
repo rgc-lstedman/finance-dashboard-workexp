@@ -1,4 +1,4 @@
-# 🚀 Next steps — where to take this after today
+# 🚀 Next steps — where to take this next
 
 You've built a working screener. Here are ideas for making it better and for
 learning more, roughly easiest first. **Pick whatever sounds fun** — there's no
@@ -10,7 +10,7 @@ order you have to follow, and you don't need anyone's permission to experiment.
 
 ---
 
-## 🟢 Quick wins (10–30 minutes each)
+## 🟢 Quick wins
 
 - **Add your own companies.** Edit the `UNIVERSE` dictionary at the top of
   `app.py` — add stocks you've heard of (`"UBER": "Uber"`, `"SPOT": "Spotify"`).

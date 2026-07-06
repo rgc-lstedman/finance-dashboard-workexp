@@ -312,7 +312,7 @@ the one to really take your time over:
 
 Quick lookups: [`../reference/pandas-cheatsheet.md`](../reference/pandas-cheatsheet.md).
 
-You now have everything for the filtering stage of the [`../SPEC.md`](../SPEC.md)
+You now have everything for the filtering stage of the [`../docs/SPEC.md`](../docs/SPEC.md)
 — the heart of the project.
 
 ---
