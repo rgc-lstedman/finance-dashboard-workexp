@@ -94,4 +94,4 @@ if data.empty:
 #   st.line_chart(one["Close"])
 
 st.subheader(f"{len(data)} stocks")
-st.dataframe(data, use_container_width=True)
+st.dataframe(data, width="stretch")
