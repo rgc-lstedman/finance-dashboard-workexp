@@ -41,14 +41,24 @@ You should end up with a folder called `finance-dashboard-workexp` containing
 
 ---
 
-## 2. Get a code editor (IDE)
+## 2. Get a code editor (optional but recommended)
 
 You'll be editing one file — `app.py` — the whole way through this project, so
-you need a **code editor** (often called an **IDE**, short for "Integrated
-Development Environment"). Think of it as a word processor built for code: it
-colours your Python, spots typos, and helps you run things.
+you need *something* to edit text with.
 
-All of these are **free**. Not sure which to pick? Choose **VS Code**.
+**You don't have to install anything.** `app.py` is a plain text file, so the
+editor already on your computer works fine:
+
+- **Windows** — **Notepad** (built in).
+- **macOS** — **TextEdit** (built in). Open it, then choose **Format → Make Plain
+  Text** first so it doesn't add hidden formatting.
+
+That's enough to finish the whole project.
+
+A proper **code editor** (also called an **IDE**, "Integrated Development
+Environment") isn't required — but it makes life nicer: it colours your Python,
+spots typos, and can run the app for you. If you'd like one, all of these are
+**free**. Not sure which? Choose **VS Code**.
 
 | Editor | Good for | Download |
 | ------ | -------- | -------- |
@@ -61,8 +71,8 @@ All of these are **free**. Not sure which to pick? Choose **VS Code**.
 > up the first time you open `app.py`). You can even open a terminal *inside* the
 > editor — **Terminal → New Terminal** — and run the `uv` commands from there.
 
-To open the project: launch your editor, choose **File → Open Folder…**, and pick
-the `finance-dashboard-workexp` folder.
+To open the project in a code editor: launch it, choose **File → Open Folder…**,
+and pick the `finance-dashboard-workexp` folder.
 
 ---
 
