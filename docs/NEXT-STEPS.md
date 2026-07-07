@@ -51,6 +51,46 @@ order you have to follow, and you don't need anyone's permission to experiment.
 - **Backtest a simple rule.** e.g. "if the 20-day average crosses above the
   50-day average, that's a buy signal" — mark those days on the chart. (This is a
   real technique; keep it simple and don't trade real money on it!)
+- **A first taste of machine learning.** These need one extra package —
+  `uv add scikit-learn` (one time) — then `from sklearn... import ...`:
+  - *Group similar stocks (clustering).* Let the computer sort your table into
+    "types" of stock by how they behave — no labels needed:
+    ```python
+    from sklearn.cluster import KMeans
+
+    # Pick the numbers that describe each stock's "behaviour" (its features).
+    feats = data[["Change %", "Volatility %", "Avg Volume"]].dropna()
+
+    # KMeans finds 3 clusters of stocks that look alike across those features.
+    # n_clusters=3 = how many groups to make; n_init=10 = try 10 times, keep the best.
+    # fit_predict returns which group (0, 1 or 2) each stock landed in.
+    data.loc[feats.index, "Group"] = KMeans(n_clusters=3, n_init=10).fit_predict(feats)
+
+    st.dataframe(data)  # each stock now has a Group 0/1/2 of similar ones
+    ```
+  - *Guess tomorrow's direction (classification).* Train a tiny model on one
+    stock's daily returns to "predict" up vs down:
+    ```python
+    from sklearn.linear_model import LogisticRegression
+
+    # Daily % change of the stock you picked (each day's return).
+    r = load_one(choice, period)["Close"].pct_change().dropna()
+
+    # Build the training data:
+    #   X = today's return (the "feature" we learn from), for every day but the last.
+    #   y = the answer we want: did the NEXT day go up? 1 = up, 0 = down.
+    #       r.shift(-1) pulls tomorrow's return onto today's row so they line up.
+    X, y = r[:-1].to_frame("today"), (r.shift(-1) > 0)[:-1].astype(int)
+
+    # "Train" the model: it learns any link between today's move and tomorrow's.
+    model = LogisticRegression().fit(X, y)
+
+    # Ask it about the most recent day; predict_proba gives [P(down), P(up)] — take P(up).
+    st.write(f"Guessed chance it rises next day: {model.predict_proba(r[-1:].to_frame('today'))[0][1]:.0%}")
+    ```
+    ⚠️ **This one is a toy.** One feature, tiny data, and markets are close to
+    random day-to-day — expect roughly coin-flip accuracy. It's here to show *how*
+    ML plugs in, **not** a way to make money. Never trade on it.
 
 ---
 
@@ -63,6 +103,37 @@ order you have to follow, and you don't need anyone's permission to experiment.
 - **yfinance** — what else you can download: <https://ranaroussi.github.io/yfinance/>
 - **git & GitHub** — how programmers save and share code, and how you'd deploy the
   app above: <https://docs.github.com/en/get-started>
+
+---
+
+## 📈 More data & bigger toolkits
+
+`yfinance` is a great, free starting point — but it's only one source. When you
+want more (fundamentals, crypto, forex, economic data) or want to see how the
+pros structure things, these curated lists point at almost everything worth
+knowing:
+
+- **awesome-quant** — a huge, well-kept list of libraries, data sources and tools
+  for quantitative finance in Python (and other languages):
+  <https://github.com/wilsonfreitas/awesome-quant>
+- **Public APIs — Finance section** — free/freemium APIs for prices, company data
+  and more: <https://github.com/public-apis/public-apis#finance>
+
+And a few individual data sources you can actually pull from today:
+
+- **Alpha Vantage** — free stock/forex/crypto API (grab a free key):
+  <https://www.alphavantage.co/>
+- **FRED** — the US Federal Reserve's economic data (rates, inflation, GDP), free:
+  <https://fred.stlouisfed.org/>
+- **Nasdaq Data Link** (formerly Quandl) — many free and paid datasets:
+  <https://data.nasdaq.com/>
+- **OpenBB** — a free, open-source "Bloomberg-lite" research platform you can
+  drive from Python: <https://openbb.co/>
+
+> 🔑 **Heads-up:** most of these want a free **API key** (a password that
+> identifies your app), and free tiers have limits (e.g. X requests per minute).
+> Read each one's "getting started" page. `yfinance` needs no key, which is why we
+> start there.
 
 ---
 
